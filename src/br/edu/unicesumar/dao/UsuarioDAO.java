@@ -1,19 +1,19 @@
-package domain.dao;
+package br.edu.unicesumar.dao;
 
-import domain.model.Usuario;
+import br.edu.unicesumar.domain.Conexao;
+import br.edu.unicesumar.domain.Usuario;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
 
 public class UsuarioDAO {
     private Connection conn;
 
     public UsuarioDAO(Connection connection) {
-        this.conn = connection;
+        this.conn = Conexao.getConexao();
     }
 
     public void salvar(Usuario dados) {
@@ -23,8 +23,8 @@ public class UsuarioDAO {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, dados.getNome());
             preparedStatement.setString(2, dados.getLogin());
-            preparedStatement.setString(3, dados.getEmail());
-            preparedStatement.setString(4, dados.getSenha());
+            preparedStatement.setString(3, dados.getSenha());
+            preparedStatement.setString(4, dados.getEmail());
 
             preparedStatement.execute();
 
@@ -39,6 +39,7 @@ public class UsuarioDAO {
 
     public void buscar(String login, String senha) throws SQLException {
         PreparedStatement preparedStatement = null;
+        
         String sql = "SELECT id, nome, login, senha , email from usuario where login = ? and senha = ?";
         try {
             preparedStatement = conn.prepareStatement(sql);
@@ -52,12 +53,11 @@ public class UsuarioDAO {
             } else {
                 JOptionPane.showMessageDialog(null,"Acesso Negado");
             }
+            conn.close();
+            preparedStatement.close();
 
         } catch (Exception e){
             System.out.println(e.getMessage());
-        } finally {
-            preparedStatement.close();
-            conn.close();
         }
     }
 }

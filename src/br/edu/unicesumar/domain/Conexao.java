@@ -1,4 +1,4 @@
-package domain.dao;
+package br.edu.unicesumar.domain;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

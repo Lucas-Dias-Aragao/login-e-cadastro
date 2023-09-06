@@ -1,14 +1,14 @@
-import domain.dao.Conexao;
-import domain.dao.UsuarioDAO;
-import domain.model.Usuario;
+package br.edu.unicesumar.view;
+
+import br.edu.unicesumar.domain.Conexao;
+import br.edu.unicesumar.dao.UsuarioDAO;
+import br.edu.unicesumar.domain.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class GuiCadastrarNovoUsuario extends JFrame {
     private JTextField campoNome, campoLogin, campoEmail;
@@ -69,17 +69,15 @@ public class GuiCadastrarNovoUsuario extends JFrame {
                         campoSenha.getText(), campoEmail.getText());
                 new UsuarioDAO(connection).salvar(usuario);
                 frame.setVisible(false);
-
             }
         });
     }
-
     public void abrir() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 frame = new GuiCadastrarNovoUsuario();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
                 frame.setLocation((tela.width - frame.getSize().width) /2,
                         (tela.height - frame.getSize().height) / 2);

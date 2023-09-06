@@ -1,13 +1,13 @@
-import domain.dao.Conexao;
-import domain.dao.UsuarioDAO;
+package br.edu.unicesumar.view;
+
+import br.edu.unicesumar.domain.Conexao;
+import br.edu.unicesumar.dao.UsuarioDAO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TelaLogin extends JFrame {
@@ -18,7 +18,7 @@ public class TelaLogin extends JFrame {
     private JButton btLogar;
     private JButton btCadastrar;
     private static TelaLogin frame;
-    Connection connection = null;
+    Connection connection;
 
     public TelaLogin(){
         inicializarComponentes();
@@ -57,7 +57,7 @@ public class TelaLogin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new UsuarioDAO(connection).buscar(frame.campoLogin.getText(),frame.campoSenha.getText());
+                    new UsuarioDAO(connection).buscar(campoLogin.getText(),campoSenha.getText());
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -73,7 +73,7 @@ public class TelaLogin extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
+    public static void abrir() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -87,6 +87,10 @@ public class TelaLogin extends JFrame {
         });
     }
 
+    public static void main(String[] args) {
+        TelaLogin lg = new TelaLogin();
+        lg.abrir();
+    }
 
 
 }

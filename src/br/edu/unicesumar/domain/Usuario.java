@@ -1,4 +1,4 @@
-package domain.model;
+package br.edu.unicesumar.domain;
 
 public class Usuario {
     private String nome;
