@@ -61,28 +61,21 @@ public class TelaCadastrarUsuario extends JFrame {
     }
 
     private void definirEventos() {
-        btSalvar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Usuario usuario = new Usuario(campoNome.getText(), campoLogin.getText(),
-                        campoSenha.getText(), campoEmail.getText());
-                new UsuarioDAO(connection).salvar(usuario);
-                frame.setVisible(false);
-                TelaLogin.abrir();
-            }
+        btSalvar.addActionListener(e -> {
+            Usuario usuario = new Usuario(campoNome.getText(), campoLogin.getText(),
+                    campoSenha.getText(), campoEmail.getText());
+            new UsuarioDAO(connection).salvar(usuario);
+            frame.setVisible(false);
         });
     }
-    public static void abrir() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                frame = new TelaCadastrarUsuario();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
-                frame.setLocation((tela.width - frame.getSize().width) /2,
-                        (tela.height - frame.getSize().height) / 2);
-                frame.setVisible(true);
-            }
+    public void abrir() {
+        SwingUtilities.invokeLater(() -> {
+            frame = new TelaCadastrarUsuario();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setLocation((tela.width - frame.getSize().width) /2,
+                    (tela.height - frame.getSize().height) / 2);
+            frame.setVisible(true);
         });
     }
 }

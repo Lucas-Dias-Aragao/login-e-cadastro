@@ -32,12 +32,13 @@ public class UsuarioDAO {
 
             preparedStatement.close();
             conn.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void buscar(String login, String senha) throws SQLException {
+    public void buscar(String login, String senha) {
         
         String sql = "SELECT id, nome, login, senha , email from usuario where login = ? and senha = ?";
         try {

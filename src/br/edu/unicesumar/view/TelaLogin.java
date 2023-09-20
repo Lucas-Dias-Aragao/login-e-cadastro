@@ -55,13 +55,9 @@ public class TelaLogin extends JFrame {
         btLogar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new UsuarioDAO(connection).buscar(campoLogin.getText(), campoSenha.getText());
-                    campoLogin.setText("");
-                    campoSenha.setText("");
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                new UsuarioDAO(connection).buscar(campoLogin.getText(), campoSenha.getText());
+                campoLogin.setText("");
+                campoSenha.setText("");
             }
         });
 
@@ -71,7 +67,6 @@ public class TelaLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 TelaCadastrarUsuario cadastro = new TelaCadastrarUsuario();
                 cadastro.abrir();
-                frame.setVisible(false);
             }
         });
     }
