@@ -38,11 +38,10 @@ public class UsuarioDAO {
     }
 
     public void buscar(String login, String senha) throws SQLException {
-        PreparedStatement preparedStatement = null;
         
         String sql = "SELECT id, nome, login, senha , email from usuario where login = ? and senha = ?";
         try {
-            preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1,login);
             preparedStatement.setString(2,senha);
 

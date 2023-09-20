@@ -13,10 +13,8 @@ import java.sql.SQLException;
 public class TelaLogin extends JFrame {
     private JTextField campoLogin;
     private JPasswordField campoSenha;
-    private JLabel lbSenha;
-    private JLabel lbLogin;
-    private JButton btLogar;
-    private JButton btCadastrar;
+    private JLabel lbSenha,lbLogin;
+    private JButton btLogar, btCadastrar;
     private static TelaLogin frame;
     Connection connection;
 
@@ -53,22 +51,27 @@ public class TelaLogin extends JFrame {
     }
 
     private void definirEventos() {
+        //Logar
         btLogar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new UsuarioDAO(connection).buscar(campoLogin.getText(),campoSenha.getText());
+                    new UsuarioDAO(connection).buscar(campoLogin.getText(), campoSenha.getText());
+                    campoLogin.setText("");
+                    campoSenha.setText("");
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
         });
 
+        //Cadastrar
         btCadastrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GuiCadastrarNovoUsuario cadastro = new GuiCadastrarNovoUsuario();
+                TelaCadastrarUsuario cadastro = new TelaCadastrarUsuario();
                 cadastro.abrir();
+                frame.setVisible(false);
             }
         });
     }
@@ -86,11 +89,5 @@ public class TelaLogin extends JFrame {
             }
         });
     }
-
-    public static void main(String[] args) {
-        TelaLogin lg = new TelaLogin();
-        lg.abrir();
-    }
-
 
 }

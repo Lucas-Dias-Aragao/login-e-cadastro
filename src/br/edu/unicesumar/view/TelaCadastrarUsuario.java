@@ -10,17 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
-public class GuiCadastrarNovoUsuario extends JFrame {
+public class TelaCadastrarUsuario extends JFrame {
     private JTextField campoNome, campoLogin, campoEmail;
     private JPasswordField campoSenha;
     private JLabel lbSenha, lbLogin, lbNome, lbEmail, lbTitulo;
     private JButton btSalvar;
-
-    private static GuiCadastrarNovoUsuario frame;
-
+    private static TelaCadastrarUsuario frame;
     Connection connection;
 
-    public GuiCadastrarNovoUsuario(){
+    public TelaCadastrarUsuario(){
         inicializarComponentes();
         definirEventos();
         connection = Conexao.getConexao();
@@ -61,6 +59,7 @@ public class GuiCadastrarNovoUsuario extends JFrame {
         add(lbEmail);
         add(btSalvar);
     }
+
     private void definirEventos() {
         btSalvar.addActionListener(new ActionListener() {
             @Override
@@ -69,14 +68,15 @@ public class GuiCadastrarNovoUsuario extends JFrame {
                         campoSenha.getText(), campoEmail.getText());
                 new UsuarioDAO(connection).salvar(usuario);
                 frame.setVisible(false);
+                TelaLogin.abrir();
             }
         });
     }
-    public void abrir() {
+    public static void abrir() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                frame = new GuiCadastrarNovoUsuario();
+                frame = new TelaCadastrarUsuario();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
                 frame.setLocation((tela.width - frame.getSize().width) /2,
@@ -85,5 +85,4 @@ public class GuiCadastrarNovoUsuario extends JFrame {
             }
         });
     }
-
 }
