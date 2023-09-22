@@ -28,7 +28,8 @@ public class UsuarioDAO {
 
             preparedStatement.execute();
 
-            JOptionPane.showMessageDialog(null, "Usuário Cadastrado");
+            JOptionPane.showMessageDialog(null, "Usuário Cadastrado",
+                    "Cadastro realizado",JOptionPane.INFORMATION_MESSAGE);
 
             preparedStatement.close();
             conn.close();
@@ -51,8 +52,10 @@ public class UsuarioDAO {
             if(resultSet.next()){
                 JOptionPane.showMessageDialog(null,"Acesso Autorizado");
             } else {
-                JOptionPane.showMessageDialog(null,"Acesso Negado");
+                JOptionPane.showMessageDialog(null,"Acesso Negado",
+                        "Usuario não cadastrado",JOptionPane.ERROR_MESSAGE);
             }
+
             conn.close();
             preparedStatement.close();
 

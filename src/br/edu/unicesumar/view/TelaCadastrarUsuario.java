@@ -62,10 +62,14 @@ public class TelaCadastrarUsuario extends JFrame {
 
     private void definirEventos() {
         btSalvar.addActionListener(e -> {
-            Usuario usuario = new Usuario(campoNome.getText(), campoLogin.getText(),
-                    campoSenha.getText(), campoEmail.getText());
-            new UsuarioDAO(connection).salvar(usuario);
-            frame.setVisible(false);
+
+            if(validaCampos()){
+                Usuario usuario = new Usuario(campoNome.getText(), campoLogin.getText(),
+                        campoSenha.getText(), campoEmail.getText());
+                new UsuarioDAO(connection).salvar(usuario);
+                frame.dispose();
+            }
+
         });
     }
     public void abrir() {
@@ -77,5 +81,15 @@ public class TelaCadastrarUsuario extends JFrame {
                     (tela.height - frame.getSize().height) / 2);
             frame.setVisible(true);
         });
+    }
+
+    private Boolean validaCampos(){
+        if(campoNome.getText().equals("") || campoEmail.getText().equals("") ||
+                campoLogin.getText().equals("") || campoSenha.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Por favor, preencha todos os campos!");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
